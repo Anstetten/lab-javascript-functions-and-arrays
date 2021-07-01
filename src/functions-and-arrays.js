@@ -194,9 +194,9 @@ function greatestProduct(matrixInput) {
     for (let x=0;x<=x_max;x++){
       let productVertical=0;
       let productHorizontal=0;
-      console.log(y +" " +x + " " +matrixInput[y][x]);
-      if((x_max-x)>=4) {productHorizontal=matrixInput[y][x]*matrixInput[y][x+1]*matrixInput[y][x+2]*matrixInput[y][x+3];}
-      if((y_max-y)>=4) {productVertical=matrixInput[y][x]*matrixInput[y+1][x]*matrixInput[y+2][x]*matrixInput[y+3][x]};
+
+      if((x_max-x)>=3) {productHorizontal=matrixInput[y][x]*matrixInput[y][x+1]*matrixInput[y][x+2]*matrixInput[y][x+3];}
+      if((y_max-y)>=3) {productVertical=matrixInput[y][x]*matrixInput[y+1][x]*matrixInput[y+2][x]*matrixInput[y+3][x]};
 
        greatestProduct=(productHorizontal>greatestProduct) ? productHorizontal :
                        (productVertical>greatestProduct)   ? productVertical   : greatestProduct;
@@ -207,9 +207,42 @@ function greatestProduct(matrixInput) {
 
   }
 
-console.log(greatestProduct(matrix));
-//console.log(matrix);
+//8.1 Bonus
 
+function greatestProductOfDiagonals(matrixInput) {
+  let greatestProduct=0;
+
+  //  -------x----->
+  //  |
+  //  |
+  //  y
+  //  |
+  //  |
+  let y_min=0;
+  let y_max=matrixInput.length-1;
+  let x_min=0;
+  let x_max=matrixInput[0].length-1;
+
+  for (let y=0; y<=y_max;y++){
+
+    for (let x=0;x<=x_max;x++){
+      let productUpDiagonal=0;
+      let productDownDiagonal=0;
+      //UpDiagonals
+      if(y>=3 && (x_max-x)>=3) {productUpDiagonal=matrixInput[y][x]*matrixInput[y-1][x+1]*matrixInput[y-2][x+2]*matrixInput[y-3][x+3];}
+      //DownDiagonals
+      if((y_max-y)>=3 && (x_max-x)>=3) {productDownDiagonal=matrixInput[y][x]*matrixInput[y+1][x+1]*matrixInput[y+2][x+2]*matrixInput[y+3][x+3]};
+
+       greatestProduct=(productUpDiagonal>greatestProduct) ? productUpDiagonal :
+                       (productDownDiagonal>greatestProduct)   ? productDownDiagonal   : greatestProduct;
+    }
+  }
+
+  return greatestProduct;
+  }
+
+  console.log(greatestProduct(matrix));
+  console.log(greatestProductOfDiagonals(matrix));
 
 
 
