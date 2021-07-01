@@ -1,41 +1,87 @@
 // Iteration #1: Find the maximum
-function maxOfTwoNumbers() {}
+function maxOfTwoNumbers(num1,num2) {
 
+  return (num1>=num2) ? num1:num2;
+}
 
 
 // Iteration #2: Find longest word
 const words = ['mystery', 'brother', 'aviator', 'crocodile', 'pearl', 'orchard', 'crackpot'];
 
-function findLongestWord() {}
 
+function findLongestWord(strArray) {
 
+  if(strArray.length===0) return null;
+  let longestWord ="";
+
+  strArray.forEach(word =>{
+    if (word.length>longestWord.length) longestWord=word;
+  })
+
+  return longestWord;
+}
 
 // Iteration #3: Calculate the sum
 const numbers = [6, 12, 1, 18, 13, 16, 2, 1, 8, 10];
+const numbers2=[0,0,0,0];
 
-function sumNumbers() {}
+function sumNumbers(numberArray) {
+
+  let sum =0;
+  numberArray.forEach(number =>{sum+=number;})
+  return sum;
+}
 
 
+
+const mixedArr = [6, 12, 'miami', 1, true, 'barca', '200', 'lisboa', 8, 10];
 
 // Iteration #3.1 Bonus:
-function sum() {}
+function sum(inputArray) {
 
+  let sum =0;
+  inputArray.forEach(element =>{
+    let elemenType = typeof(element);
+    if (elemenType!=="boolean" && elemenType!=="string" && elemenType!=="number") throw Error("Unsupported data type sir or ma'am");
+        sum = elemenType==="boolean" ? element+sum :
+              elemenType==="string" ? element.length+sum:
+              elemenType==="number" ? element+sum: sum;
+  })
+  return sum;
+}
 
 
 // Iteration #4: Calculate the average
 // Level 1: Array of numbers
 const numbersAvg = [2, 6, 9, 10, 7, 4, 1, 9];
 
-function averageNumbers() {}
+function averageNumbers(numberArray) {
 
+  let sum= sumNumbers(numberArray);
+  return (numberArray.length===0) ? null : sum/numberArray.length;
+
+}
+
+//console.log(averageNumbers(numbersAvg));
 
 // Level 2: Array of strings
 const wordsArr = ['seat', 'correspond', 'linen', 'motif', 'hole', 'smell', 'smart', 'chaos', 'fuel', 'palace'];
 
-function averageWordLength() { }
+function averageWordLength(stringArray) {
+  
+  if(stringArray.length===0) return null;
+  return sum(stringArray)/stringArray.length;
+
+ }
 
 // Bonus - Iteration #4.1
-function avg() {}
+function avg(mixedArray) {
+  
+  if(mixedArray.length===0) return null;
+  return parseFloat((sum(mixedArray)/mixedArray.length).toFixed(2));
+}
+
+
 
 // Iteration #5: Unique arrays
 const wordsUnique = [
@@ -52,14 +98,28 @@ const wordsUnique = [
   'bring'
 ];
 
-function uniquifyArray() {}
+function uniquifyArray(nonUniqeArray) {
+  if (nonUniqeArray.length===0) return null;
 
+  let uniqeArray=[];
+
+  nonUniqeArray.forEach(word =>{
+    if(uniqeArray.includes(word)===false) uniqeArray.push(word);
+  })
+
+  return uniqeArray;
+  }
 
 
 // Iteration #6: Find elements
 const wordsFind = ['machine', 'subset', 'trouble', 'starting', 'matter', 'eating', 'truth', 'disobedience'];
 
-function doesWordExist() {}
+function doesWordExist(wordArray,wordToSearch) {
+
+  if (wordArray.length===0) return null;
+
+  return wordArray.includes(wordToSearch);
+}
 
 
 
@@ -78,7 +138,16 @@ const wordsCount = [
   'matter'
 ];
 
-function howManyTimes() {}
+function howManyTimes(wordArray, wordToSearch) {
+  
+  let numberOfOccurence =0;
+
+  wordArray.forEach(word =>{
+    numberOfOccurence= (wordToSearch===word)? numberOfOccurence+1: numberOfOccurence;
+  })
+
+  return numberOfOccurence;
+}
 
 
 
@@ -106,7 +175,40 @@ const matrix = [
   [1, 70, 54, 71, 83, 51, 54, 69, 16, 92, 33, 48, 61, 43, 52, 1, 89, 19, 67, 48]
 ];
 
-function greatestProduct() {}
+function greatestProduct(matrixInput) {
+  let greatestProduct=0;
+
+  //  -------x----->
+  //  |
+  //  |
+  //  y
+  //  |
+  //  |
+  let y_min=0;
+  let y_max=matrixInput.length-1;
+  let x_min=0;
+  let x_max=matrixInput[0].length-1;
+
+  for (let y=0; y<=y_max;y++){
+
+    for (let x=0;x<=x_max;x++){
+      let productVertical=0;
+      let productHorizontal=0;
+      console.log(y +" " +x + " " +matrixInput[y][x]);
+      if((x_max-x)>=4) {productHorizontal=matrixInput[y][x]*matrixInput[y][x+1]*matrixInput[y][x+2]*matrixInput[y][x+3];}
+      if((y_max-y)>=4) {productVertical=matrixInput[y][x]*matrixInput[y+1][x]*matrixInput[y+2][x]*matrixInput[y+3][x]};
+
+       greatestProduct=(productHorizontal>greatestProduct) ? productHorizontal :
+                       (productVertical>greatestProduct)   ? productVertical   : greatestProduct;
+    }
+  }
+
+  return greatestProduct;
+
+  }
+
+console.log(greatestProduct(matrix));
+//console.log(matrix);
 
 
 
